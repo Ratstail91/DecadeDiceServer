@@ -2,7 +2,8 @@
 #RM=del /y
 
 #Windows 8.1:
-#RM=del /S
+RM=del /S
+CP=copy
 
 #source
 SRC=$(wildcard */*.cs */*/*.cs */*/*/*.cs */*/*/*/*.cs)
@@ -16,6 +17,8 @@ FLAGS=STEAMWORKS_LIN_OSX
 CSC=mcs
 endif
 
+BINDIR=bin
+
 #output
 ifeq ($(OS),Windows_NT)
 OUTFILE=DecadeDiceServer.exe
@@ -27,6 +30,7 @@ OUT=$(addprefix $(OUTDIR)/,$(OUTFILE))
 
 all: $(OUTDIR)
 	$(CSC) -out:$(OUT) $(SRC) -define:$(FLAGS)
+	$(CP) $(BINDIR) $(OUTDIR)
 
 $(OUTDIR):
 	mkdir $(OUTDIR)
